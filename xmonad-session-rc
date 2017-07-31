@@ -3,6 +3,7 @@
 # Author: Vic Fryzel
 # http://github.com/vicfryzel/xmonad-config
 
+# Modified for Kevin Green's needs
 
 # Configure PATH so that we can access our scripts below
 PATH=$PATH:~/.cabal/bin:~/.xmonad/bin
@@ -10,7 +11,9 @@ PATH=$PATH:~/.cabal/bin:~/.xmonad/bin
 # Configure X
 xsetroot -cursor_name left_ptr &
 xrdb -merge ~/.Xdefaults &
-setxkbmap -option "ctrl:nocaps" &
+
+# my beloved key mappings!
+xmodmap ~/.Xmodmap
 
 # Start a window compositor. This ensures Google Chrome paints correctly.
 xcompmgr -n &
@@ -18,12 +21,9 @@ xcompmgr -n &
 # Start the system tray
 tray &
 
-# Start two terminals
-gnome-terminal &
-gnome-terminal &
-
-# Start a browser
-google-chrome &
+if [ -x /usr/bin/nm-applet ] ; then
+   nm-applet --sm-disable &
+fi
 
 # Start screensaver
 gnome-screensaver &
