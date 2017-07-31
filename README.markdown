@@ -1,5 +1,5 @@
 # xmonad-config
-xmonad-config is the [xmonad](http://xmonad.org/) configuration used by Vic Fryzel.
+xmonad-config is the [xmonad](http://xmonad.org/) base configuration used by Vic Fryzel with modifications to suit Kevin Green's needs.
 
 
 ## Introduction
@@ -136,3 +136,16 @@ layout after a fullscreen application may have turned off one of the screens.
 
 Colors set in the xmobar config and dmenu script are meant to coincide with the
 [IR_Black terminal and vim themes](http://toddwerth.com/2008/04/30/the-last-vim-color-scheme-youll-ever-need/).
+
+
+## Notes on xmobar
+
+For reference: [xmobar](http://projects.haskell.org/xmobar/).
+
+Want to build using `cabal install xmobar --flags="all_extensions"` to have all the sweet, sweet goodies.
+
+To do this in ubuntu, need to have the packages:
+- `libasound-dev`
+- `libiw-dev`
+
+The install may still fail, but it will way which dependencies it failed to install, and I had success with installing them individually.
