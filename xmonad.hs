@@ -2,6 +2,8 @@
 -- Author: Vic Fryzel
 -- http://github.com/vicfryzel/xmonad-config
 
+-- Modified for Kevin Green's needs
+
 import System.IO
 import System.Exit
 import XMonad
@@ -47,7 +49,7 @@ myLauncher = "$(yeganesh -x -- -fn '-*-terminus-*-r-normal-*-*-120-*-*-*-*-iso88
 -- Workspaces
 -- The default number of workspaces (virtual screens) and their names.
 --
-myWorkspaces = ["1:term","2:web","3:code","4:vm","5:media"] ++ map show [6..9]
+myWorkspaces = ["1:term","2:web","3:code"] ++ map show [4..8] ++ ["9:media"]
 
 
 ------------------------------------------------------------------------
@@ -73,9 +75,9 @@ myManageHook = composeAll
     , className =? "Gimp"           --> doFloat
     , resource  =? "gpicview"       --> doFloat
     , className =? "MPlayer"        --> doFloat
-    , className =? "VirtualBox"     --> doShift "4:vm"
-    , className =? "Xchat"          --> doShift "5:media"
-    , className =? "stalonetray"    --> doIgnore
+    , className =? "VirtualBox"     --> doShift "4"
+    , className =? "Xchat"          --> doShift "5"
+--    , className =? "stalonetray"    --> doIgnore
     , isFullscreen --> (doF W.focusDown <+> doFullFloat)]
 
 
@@ -120,7 +122,7 @@ tabConfig = defaultTheme {
 xmobarTitleColor = "#FFB6B0"
 
 -- Color of current workspace in xmobar.
-xmobarCurrentWorkspaceColor = "#CEFFAC"
+xmobarCurrentWorkspaceColor = "green"
 
 -- Width of the window border in pixels.
 myBorderWidth = 1
@@ -134,7 +136,7 @@ myBorderWidth = 1
 -- ("right alt"), which does not conflict with emacs keybindings. The
 -- "windows key" is usually mod4Mask.
 --
-myModMask = mod1Mask
+myModMask = mod4Mask
 
 myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
   ----------------------------------------------------------------------
