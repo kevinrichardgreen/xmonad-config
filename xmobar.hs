@@ -15,12 +15,12 @@ Config {
         Run Cpu ["-L","3","-H","50","--normal","green","--high","red"] 10,
         Run Memory ["-t","Mem: <usedratio>%","-H","6144","-L","4096","-h","#FFB6B0","-l","#CEFFAC","-n","#FFFFCC"] 10,
         Run Swap ["-t","Swap: <usedratio>%","-H","1024","-L","512","-h","#FFB6B0","-l","#CEFFAC","-n","#FFFFCC"] 10,
-	Run DynNetwork ["-L","0","-H","32","--normal","green","--high","red"] 10,
+	Run DynNetwork ["-t", "<rx>KB*<tx>KB","-L","0","-H","32","--normal","green","--high","red"] 10,
         Run Date "%a %b %_d %Y %H:%M:%S" "date" 10,
         Run Com "getMasterVolume" [] "volumelevel" 10,
         Run StdinReader
     ],
     sepChar = "%",
     alignSep = "}{",
-    template = "%StdinReader% }{%cpu% %memory% %swap% %dynnetwork% | %CYXE% | <fc=#ee9a00>%date%</fc> | Vol:<fc=#b2b2ff>%volumelevel%</fc> | "
+    template = "%StdinReader% }{ %dynnetwork% | %cpu% %memory% %swap% | %CYXE% | <fc=#ee9a00>%date%</fc> | Vol:<fc=#b2b2ff>%volumelevel%</fc> | "
 }
