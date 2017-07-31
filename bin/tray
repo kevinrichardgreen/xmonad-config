@@ -6,4 +6,6 @@
 # Modified for Kevin Green's needs
 
 # Place in the upper right hand corner
-stalonetray -c ~/.xmonad/stalonetray-rc -i 12 --geometry 4x1+1302+0
+stalonetray -c ~/.xmonad/stalonetray-rc --geometry 4x1+1302+0
+
+

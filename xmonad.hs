@@ -42,15 +42,15 @@ myScreenshot = "screenshot"
 
 -- The command to use as a launcher, to launch commands that don't have
 -- preset keybindings.
-myLauncher = "$(yeganesh -x -- -fn '-*-terminus-*-r-normal-*-*-120-*-*-*-*-iso8859-*' -nb '#000000' -nf '#FFFFFF' -sb '#7C7C7C' -sf '#CEFFAC')"
+myLauncher = "$(yeganesh -x -- -fn '-*-terminus-*-r-normal-*-*-100-*-*-*-*-iso8859-*' -nb '#000000' -nf '#FFFFFF' -sb '#7C7C7C' -sf '#CEFFAC')"
 
 
 ------------------------------------------------------------------------
 -- Workspaces
 -- The default number of workspaces (virtual screens) and their names.
 --
-myWorkspaces = ["1:term","2:web","3:code"] ++ map show [4..8] ++ ["9:media"]
-
+--myWorkspaces = ["1:web","2:term","3:code"] ++ map show [4..8] ++ ["9:media"]
+myWorkspaces = map show [1..9]
 
 ------------------------------------------------------------------------
 -- Window rules
@@ -67,19 +67,17 @@ myWorkspaces = ["1:term","2:web","3:code"] ++ map show [4..8] ++ ["9:media"]
 -- 'className' and 'resource' are used below.
 --
 myManageHook = composeAll
-    [ className =? "Chromium"       --> doShift "2:web"
-    , className =? "Google-chrome"  --> doShift "2:web"
+    [ className =? "Chromium"       --> doShift "1"
+    , className =? "Google-chrome"  --> doShift "1"
     , resource  =? "desktop_window" --> doIgnore
     , className =? "Galculator"     --> doFloat
     , className =? "Steam"          --> doFloat
     , className =? "Gimp"           --> doFloat
-    , resource  =? "gpicview"       --> doFloat
     , className =? "MPlayer"        --> doFloat
     , className =? "VirtualBox"     --> doShift "4"
     , className =? "Xchat"          --> doShift "5"
 --    , className =? "stalonetray"    --> doIgnore
     , isFullscreen --> (doF W.focusDown <+> doFullFloat)]
-
 
 ------------------------------------------------------------------------
 -- Layouts
@@ -91,13 +89,12 @@ myManageHook = composeAll
 -- The available layouts.  Note that each layout is separated by |||,
 -- which denotes layout choice.
 --
-myLayout = avoidStruts (
-    ThreeColMid 1 (3/100) (1/2) |||
+myLayout = avoidStruts (smartBorders(
     Tall 1 (3/100) (1/2) |||
     Mirror (Tall 1 (3/100) (1/2)) |||
+    spiral (6/7) |||
     tabbed shrinkText tabConfig |||
-    Full |||
-    spiral (6/7)) |||
+    Full)) |||
     noBorders (fullscreenFull Full)
 
 
@@ -136,15 +133,19 @@ myBorderWidth = 1
 -- ("right alt"), which does not conflict with emacs keybindings. The
 -- "windows key" is usually mod4Mask.
 --
-myModMask = mod4Mask
+myModMask = mod3Mask
 
 myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
   ----------------------------------------------------------------------
   -- Custom key bindings
   --
 
+  -- Open an emacsclient window (in previously visited buffer)
+  [ ((modMask, xK_f),
+     spawn "emacsclient -c -n -e '(switch-to-buffer nil)'" )
+
   -- Start a terminal.  Terminal to start is specified by myTerminal variable.
-  [ ((modMask .|. shiftMask, xK_Return),
+  , ((modMask .|. shiftMask, xK_Return),
      spawn $ XMonad.terminal conf)
 
   -- Lock the screen using command specified by myScreensaver.
@@ -297,7 +298,6 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
   [((m .|. modMask, key), screenWorkspace sc >>= flip whenJust (windows . f))
       | (key, sc) <- zip [xK_w, xK_e, xK_r] [0..]
       , (f, m) <- [(W.view, 0), (W.shift, shiftMask)]]
-
 
 ------------------------------------------------------------------------
 -- Mouse bindings
