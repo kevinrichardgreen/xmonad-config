@@ -3,7 +3,8 @@
 # Author: Vic Fryzel
 # http://github.com/vicfryzel/xmonad-config
 
+# Modified for Kevin Green's needs
 
-SCREENSHOT_DIR=$HOME/screenshots
+SCREENSHOT_DIR=$HOME/Pictures/screenshots
 mkdir -p $SCREENSHOT_DIR
 sleep 0.2; scrot -s "$SCREENSHOT_DIR/%Y-%m-%d-%H%M%S_\$wx\$h.png" -e "xdg-open \$f"
