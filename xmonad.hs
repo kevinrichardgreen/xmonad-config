@@ -351,17 +351,18 @@ myStartupHook = return ()
 --
 main = do
   xmproc <- spawnPipe "xmobar ~/.xmonad/xmobar.hs"
-  xmonad $ defaults {
-      logHook = dynamicLogWithPP $ xmobarPP {
-            ppOutput = hPutStrLn xmproc
-          , ppTitle = xmobarColor xmobarTitleColor "" . shorten 100
-          , ppCurrent = xmobarColor xmobarCurrentWorkspaceColor ""
-          , ppSep = "   "
+  xmonad $ defaults
+    { manageHook = manageDocks <+> myManageHook
+    -- this must be in this order, docksEventHook must be last
+    , handleEventHook = handleEventHook defaultConfig <+> docksEventHook
+    , logHook = dynamicLogWithPP $ xmobarPP
+      { ppOutput = hPutStrLn xmproc
+      , ppTitle = xmobarColor xmobarTitleColor "" . shorten 100
+      , ppCurrent = xmobarColor xmobarCurrentWorkspaceColor ""
+      , ppSep = "/"
       }
-      , manageHook = manageDocks <+> myManageHook
-      , startupHook = setWMName "LG3D"
-  }
-
+    , startupHook = setWMName "LG3D"
+    }
 
 ------------------------------------------------------------------------
 -- Combine it all together
