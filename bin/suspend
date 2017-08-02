@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+# Script to suspend system
+
+# NOTES:
+# - edit /etc/sudoers to allow yourself to run "/bin/systemcl suspend"
+#   without password
+
+sudo systemctl suspend

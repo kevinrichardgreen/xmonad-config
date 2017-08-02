@@ -16,7 +16,7 @@ xrdb -merge ~/.Xdefaults &
 xcompmgr -n &
 
 # Start the system tray
-tray &
+# tray &
 #exec trayer --edge top --align right --widthtype pixel --width 200 --SetDockType true --SetPartialStrut true --transparent false -alpha 0 --tint 0x000000 --expand true --heighttype pixel --height 16 &
 
 # use xfce's power manager
@@ -24,10 +24,6 @@ xfce4-power-manager &
 
 # my beloved key mappings!
 xmodmap ~/.Xmodmap
-
-if [ -x /usr/bin/nm-applet ] ; then
-   nm-applet --sm-disable &
-fi
 
 # Start screensaver
 gnome-screensaver &

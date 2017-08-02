@@ -309,7 +309,7 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
 -- Focus rules
 -- True if your focus should follow your mouse cursor.
 myFocusFollowsMouse :: Bool
-myFocusFollowsMouse = True
+myFocusFollowsMouse = False
 
 myMouseBindings (XConfig {XMonad.modMask = modMask}) = M.fromList $
   [
@@ -363,7 +363,7 @@ main = do
       { ppOutput = hPutStrLn xmproc
       , ppTitle = xmobarColor xmobarTitleColor "" . shorten 100
       , ppCurrent = xmobarColor xmobarCurrentWorkspaceColor ""
-      , ppSep = "/"
+      , ppSep = " \\ "
       }
     , startupHook = setWMName "LG3D"
     }
