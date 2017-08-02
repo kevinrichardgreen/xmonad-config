@@ -49,8 +49,7 @@ myLauncher = "$(yeganesh -x -- -fn '-*-terminus-*-r-normal-*-*-100-*-*-*-*-iso88
 -- Workspaces
 -- The default number of workspaces (virtual screens) and their names.
 --
---myWorkspaces = ["1:web","2:term","3:code"] ++ map show [4..8] ++ ["9:media"]
-myWorkspaces = map show [1..9]
+myWorkspaces = ["1:sys","2:web","3:work","4:slack"] ++ map show [5..8] ++ ["9:music"]
 
 ------------------------------------------------------------------------
 -- Window rules
@@ -67,15 +66,12 @@ myWorkspaces = map show [1..9]
 -- 'className' and 'resource' are used below.
 --
 myManageHook = composeAll
-    [ className =? "Chromium"       --> doShift "1"
-    , className =? "Google-chrome"  --> doShift "1"
-    , resource  =? "desktop_window" --> doIgnore
-    , className =? "Galculator"     --> doFloat
-    , className =? "Steam"          --> doFloat
+    [ className =? "Chromium"       --> doShift "2:web"
+    , className =? "Google-chrome"  --> doShift "2:web"
+    , className =? "Slack"          --> doShift "4:slack"
+    , className =? "Rhythmbox"      --> doShift "9:music"
     , className =? "Gimp"           --> doFloat
     , className =? "MPlayer"        --> doFloat
-    , className =? "VirtualBox"     --> doShift "4"
-    , className =? "Xchat"          --> doShift "5"
 --    , className =? "stalonetray"    --> doIgnore
     , isFullscreen --> (doF W.focusDown <+> doFullFloat)]
 
