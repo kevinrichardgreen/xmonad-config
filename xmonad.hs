@@ -11,6 +11,7 @@ import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.ManageDocks
 import XMonad.Hooks.ManageHelpers
 import XMonad.Hooks.SetWMName
+import XMonad.Hooks.FadeInactive(fadeInactiveLogHook)
 import XMonad.Layout.Fullscreen
 import XMonad.Layout.NoBorders
 import XMonad.Layout.Spiral
@@ -99,7 +100,7 @@ myLayout = avoidStruts (smartBorders(
 -- Currently based on the ir_black theme.
 --
 myNormalBorderColor  = "#000000" --"#7c7c7c"
-myFocusedBorderColor = "#ffffff"
+myFocusedBorderColor = "#ee9a00"
 
 -- Colors for text and backgrounds of each tab when in "Tabbed" layout.
 tabConfig = defaultTheme {
@@ -118,7 +119,12 @@ xmobarTitleColor = "#ee9a00" -- "#FFB6B0"
 xmobarCurrentWorkspaceColor = "green"
 
 -- Width of the window border in pixels.
-myBorderWidth = 1
+myBorderWidth = 2
+
+-- Fading inactive windows
+myFadeHook :: X()
+myFadeHook = fadeInactiveLogHook fadeAmount
+    where fadeAmount = 0.8
 
 
 ------------------------------------------------------------------------
@@ -335,7 +341,6 @@ myMouseBindings (XConfig {XMonad.modMask = modMask}) = M.fromList $
 -- > logHook = dynamicLogDzen
 --
 
-
 ------------------------------------------------------------------------
 -- Startup hook
 -- Perform an arbitrary action each time xmonad starts or is restarted
@@ -344,7 +349,6 @@ myMouseBindings (XConfig {XMonad.modMask = modMask}) = M.fromList $
 --
 -- By default, do nothing.
 myStartupHook = return ()
-
 
 ------------------------------------------------------------------------
 -- Run xmonad with all the defaults we set up.
@@ -355,12 +359,12 @@ main = do
     { manageHook = manageDocks <+> myManageHook
     -- this must be in this order, docksEventHook must be last
     , handleEventHook = handleEventHook defaultConfig <+> docksEventHook
-    , logHook = dynamicLogWithPP $ xmobarPP
-      { ppOutput = hPutStrLn xmproc
-      , ppTitle = xmobarColor xmobarTitleColor "" . shorten 100
-      , ppCurrent = xmobarColor xmobarCurrentWorkspaceColor ""
-      , ppSep = " \\ "
-      }
+    , logHook = myFadeHook >> ( dynamicLogWithPP $ xmobarPP
+                { ppOutput = hPutStrLn xmproc
+                , ppTitle = xmobarColor xmobarTitleColor "" . shorten 100
+                , ppCurrent = xmobarColor xmobarCurrentWorkspaceColor ""
+                , ppSep = " \\ "
+                } )
     , startupHook = setWMName "LG3D"
     }
 
