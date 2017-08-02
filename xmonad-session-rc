@@ -15,10 +15,6 @@ xrdb -merge ~/.Xdefaults &
 # Start a window compositor. This ensures Google Chrome paints correctly.
 xcompmgr -n &
 
-# Start the system tray
-# tray &
-#exec trayer --edge top --align right --widthtype pixel --width 200 --SetDockType true --SetPartialStrut true --transparent false -alpha 0 --tint 0x000000 --expand true --heighttype pixel --height 16 &
-
 # use xfce's power manager
 xfce4-power-manager &
 
@@ -33,6 +29,9 @@ pulseaudio --start --log-target=syslog &
 
 # An emacs daemon for global org capture
 emacs --daemon=global-org-capture
+
+# Sleep cycles are important
+redshift &
 
 google-chrome &
 
