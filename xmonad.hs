@@ -50,7 +50,7 @@ myLauncher = "$(yeganesh -x -- -fn '-*-terminus-*-r-normal-*-*-100-*-*-*-*-iso88
 -- Workspaces
 -- The default number of workspaces (virtual screens) and their names.
 --
-myWorkspaces = ["1:sys","2:web","3:work","4:slack"] ++ map show [5..8] ++ ["9:music"]
+myWorkspaces = ["1:sys","2:web","3:work","4:slack"] ++ map show [5..7] ++ ["8:org","9:music"]
 
 ------------------------------------------------------------------------
 -- Window rules
@@ -94,7 +94,6 @@ myLayout = avoidStruts (smartBorders(
     Full)) |||
     noBorders (fullscreenFull Full)
 
-
 ------------------------------------------------------------------------
 -- Colors and borders
 -- Currently based on the ir_black theme.
@@ -105,7 +104,7 @@ myFocusedBorderColor = "#ee9a00"
 -- Colors for text and backgrounds of each tab when in "Tabbed" layout.
 tabConfig = defaultTheme {
     activeBorderColor = "#7C7C7C",
-    activeTextColor = "#CEFFAC",
+    activeTextColor = "ee9a00",
     activeColor = "#000000",
     inactiveBorderColor = "#7C7C7C",
     inactiveTextColor = "#EEEEEE",
@@ -124,7 +123,7 @@ myBorderWidth = 2
 -- Fading inactive windows
 myFadeHook :: X()
 myFadeHook = fadeInactiveLogHook fadeAmount
-    where fadeAmount = 0.8
+    where fadeAmount = 0.9
 
 
 ------------------------------------------------------------------------
