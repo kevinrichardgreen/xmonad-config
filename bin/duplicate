@@ -1,0 +1,32 @@
+#!/usr/bin/env bash
+
+# Script that duplicates displays. Scales the laptop resolution to
+#  that of the attached monitor
+#
+#  Usage: duplicate <pan/scale>
+
+#
+# NOTE: after resetting from duplicate, Xmonad reload shrinks xmobar font size.
+#  - it must think the screen is at a different resolution when setting the font
+#
+
+# Set your laptop's screen's name
+LAP_NAME=LVDS-1
+LAP_RES=`xrandr -q | grep -A1 $LAP_NAME | grep -v $LAP_NAME | tr -s " " | cut -d " " -f 2`
+
+# get monitor's name
+MON_NAME=`xrandr -q | grep " connected " | grep -v $LAP_NAME | cut -d " " -f 1`
+MON_RES=`xrandr -q | grep -A1 $MON_NAME | grep -v $MON_NAME | tr -s " " | cut -d " " -f 2`
+
+# reset xrandr screens
+xrandr -s 0
+
+opt=$1
+if [ "$opt" == "scale" ]; then
+    xrandr --output $LAP_NAME --primary --pos 0x0 --scale-from $MON_RES --output $MON_NAME --same-as $LAP_NAME --auto
+elif [ "$opt" == "pan" ]; then
+    xrandr --output $LAP_NAME --primary --pos 0x0 --panning $MON_RES --output $MON_NAME --same-as $LAP_NAME --auto
+else
+    echo "Usage: duplicate <pan/scale>"
+    exit -1
+fi

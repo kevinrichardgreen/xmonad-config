@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+
+# Script that duplicates displays. Scales the laptop resolution to
+#  that of the attached monitor
+#
+#  Usage: monitor <left/right>
+
+# Set your laptop's screen's name
+LAP_NAME=LVDS-1
+LAP_RES=`xrandr -q | grep -A1 $LAP_NAME | grep -v $LAP_NAME | tr -s " " | cut -d " " -f 2`
+
+# get monitor's name and resolution
+MON_NAME=`xrandr -q | grep " connected " | grep -v $LAP_NAME | cut -d " " -f 1`
+MON_RES=`xrandr -q | grep -A1 $MON_NAME | grep -v $MON_NAME | tr -s " " | cut -d " " -f 2`
+
+# reset xrandr screens
+xrandr -s 0
+
+# External monitor to LEFT of or RIGHT of laptop
+opt=$1
+if [ "$opt" == "left" ]; then
+    xrandr --output $LAP_NAME --primary --auto --output $MON_NAME --left-of $LAP_NAME --auto
+elif [ "$opt" == "right" ]; then
+    xrandr --output $LAP_NAME --primary --auto --output $MON_NAME --right-of $LAP_NAME --auto
+else
+    echo "Usage: monitor <left/right>"
+    exit -1
+fi
