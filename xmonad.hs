@@ -11,12 +11,12 @@ import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.ManageDocks
 import XMonad.Hooks.ManageHelpers
 import XMonad.Hooks.SetWMName
-import XMonad.Hooks.FadeInactive(fadeInactiveLogHook)
+import XMonad.Hooks.FadeInactive
 import XMonad.Layout.Fullscreen
 import XMonad.Layout.NoBorders
-import XMonad.Layout.Spiral
 import XMonad.Layout.Tabbed
-import XMonad.Layout.ThreeColumns
+-- import XMonad.Layout.ThreeColumns
+import XMonad.Layout.Circle
 import XMonad.Util.Run(spawnPipe)
 import XMonad.Util.EZConfig(additionalKeys)
 import Graphics.X11.ExtraTypes.XF86
@@ -50,7 +50,7 @@ myLauncher = "$(yeganesh -x -- -fn '-*-terminus-*-r-normal-*-*-100-*-*-*-*-iso88
 -- Workspaces
 -- The default number of workspaces (virtual screens) and their names.
 --
-myWorkspaces = ["1:sys","2:web","3:work","4:slack"] ++ map show [5..7] ++ ["8:org","9:music"]
+myWorkspaces = ["1:web","2:chat","3:work","4:work"] ++ map show [5..7] ++ ["8:music","9:sys"]
 
 ------------------------------------------------------------------------
 -- Window rules
@@ -67,10 +67,11 @@ myWorkspaces = ["1:sys","2:web","3:work","4:slack"] ++ map show [5..7] ++ ["8:or
 -- 'className' and 'resource' are used below.
 --
 myManageHook = composeAll
-    [ className =? "Chromium"       --> doShift "2:web"
-    , className =? "Google-chrome"  --> doShift "2:web"
-    , className =? "Slack"          --> doShift "4:slack"
-    , className =? "Rhythmbox"      --> doShift "9:music"
+    [ className =? "Chromium"       --> doShift "1:web"
+    , className =? "Google-chrome"  --> doShift "1:web"
+    , className =? "Slack"          --> doShift "2:chat"
+    , className =? "Skype"          --> doShift "2:chat"
+    , className =? "Rhythmbox"      --> doShift "8:music"
     , className =? "Gimp"           --> doFloat
     , className =? "MPlayer"        --> doFloat
 --    , className =? "stalonetray"    --> doIgnore
@@ -87,11 +88,11 @@ myManageHook = composeAll
 -- which denotes layout choice.
 --
 myLayout = avoidStruts (smartBorders(
-    Tall 1 (3/100) (1/2) |||
+    Tall 1 (3/100) (3/5) |||
     Mirror (Tall 1 (3/100) (1/2)) |||
-    spiral (6/7) |||
-    tabbed shrinkText tabConfig |||
-    Full)) |||
+    Circle |||
+    tabbed shrinkText tabConfig
+     )) |||
     noBorders (fullscreenFull Full)
 
 ------------------------------------------------------------------------
@@ -104,11 +105,12 @@ myFocusedBorderColor = "#ee9a00"
 -- Colors for text and backgrounds of each tab when in "Tabbed" layout.
 tabConfig = defaultTheme {
     activeBorderColor = "#7C7C7C",
-    activeTextColor = "ee9a00",
-    activeColor = "#000000",
+    activeTextColor = "#000000",
+    activeColor = "#ee9a00",
     inactiveBorderColor = "#7C7C7C",
     inactiveTextColor = "#EEEEEE",
-    inactiveColor = "#000000"
+    inactiveColor = "#000000",
+    fontName = "Monospace"
 }
 
 -- Color of current window title in xmobar.
@@ -118,7 +120,7 @@ xmobarTitleColor = "#ee9a00" -- "#FFB6B0"
 xmobarCurrentWorkspaceColor = "green"
 
 -- Width of the window border in pixels.
-myBorderWidth = 2
+myBorderWidth = 3
 
 -- Fading inactive windows
 myFadeHook :: X()
@@ -310,7 +312,7 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
 -- Focus rules
 -- True if your focus should follow your mouse cursor.
 myFocusFollowsMouse :: Bool
-myFocusFollowsMouse = False
+myFocusFollowsMouse = True
 
 myMouseBindings (XConfig {XMonad.modMask = modMask}) = M.fromList $
   [

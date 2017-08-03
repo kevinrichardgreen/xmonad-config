@@ -33,6 +33,11 @@ emacs --daemon=global-org-capture
 # Sleep cycles are important
 redshift &
 
+# Some startup apps
 google-chrome &
+slack &
+
+# background
+~/.fehbg
 
 gnome-session &
