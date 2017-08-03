@@ -12,4 +12,4 @@ LAP_RES=`xrandr -q | grep -A1 $LAP_NAME | grep -v $LAP_NAME | tr -s " " | cut -d
 # Turn off the inputs
 xrandr -s 0
 # Set laptop to default
-xrandr --output $LAP_NAME --primary --scale-from $LAP_RES --panning $LAP_RES --auto
+xrandr --output $LAP_NAME --primary --mode $LAP_RES --pos 0x0 --scale-from $LAP_RES --panning $LAP_RES
