@@ -11,12 +11,13 @@ import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.ManageDocks
 import XMonad.Hooks.ManageHelpers
 import XMonad.Hooks.SetWMName
-import XMonad.Hooks.FadeInactive
+-- import XMonad.Hooks.FadeInactive
 import XMonad.Layout.Fullscreen
 import XMonad.Layout.NoBorders
 import XMonad.Layout.Tabbed
--- import XMonad.Layout.ThreeColumns
+import XMonad.Layout.ThreeColumns
 import XMonad.Layout.Circle
+import XMonad.Layout.Magnifier
 import XMonad.Util.Run(spawnPipe)
 import XMonad.Util.EZConfig(additionalKeys)
 import Graphics.X11.ExtraTypes.XF86
@@ -50,7 +51,7 @@ myLauncher = "$(yeganesh -x -- -fn '-*-terminus-*-r-normal-*-*-100-*-*-*-*-iso88
 -- Workspaces
 -- The default number of workspaces (virtual screens) and their names.
 --
-myWorkspaces = ["1:web","2:chat","3:work","4:work"] ++ map show [5..7] ++ ["8:music","9:sys"]
+myWorkspaces = ["1:web","2:chat","3:work"] ++ map show [4..6] ++ ["7:org","8:music","9:sys"]
 
 ------------------------------------------------------------------------
 -- Window rules
@@ -69,12 +70,12 @@ myWorkspaces = ["1:web","2:chat","3:work","4:work"] ++ map show [5..7] ++ ["8:mu
 myManageHook = composeAll
     [ className =? "Chromium"       --> doShift "1:web"
     , className =? "Google-chrome"  --> doShift "1:web"
+    , className =? "Transmission"   --> doShift "1:web"
     , className =? "Slack"          --> doShift "2:chat"
     , className =? "Skype"          --> doShift "2:chat"
     , className =? "Rhythmbox"      --> doShift "8:music"
     , className =? "Gimp"           --> doFloat
     , className =? "MPlayer"        --> doFloat
---    , className =? "stalonetray"    --> doIgnore
     , isFullscreen --> (doF W.focusDown <+> doFullFloat)]
 
 ------------------------------------------------------------------------
@@ -88,9 +89,10 @@ myManageHook = composeAll
 -- which denotes layout choice.
 --
 myLayout = avoidStruts (smartBorders(
-    Tall 1 (3/100) (3/5) |||
-    Mirror (Tall 1 (3/100) (1/2)) |||
-    Circle |||
+    --    magnifiercz 1.3 (Circle) |||
+    magnifiercz 1.01  (Tall 1 (3/100) (1/2)) |||
+    magnifiercz 1.01 (Mirror (Tall 1 (3/100) (1/2))) |||
+    --    magnifiercz 1.1 (ThreeColMid 1 (3/100) (1/2)) |||
     tabbed shrinkText tabConfig
      )) |||
     noBorders (fullscreenFull Full)
@@ -120,12 +122,12 @@ xmobarTitleColor = "#ee9a00" -- "#FFB6B0"
 xmobarCurrentWorkspaceColor = "green"
 
 -- Width of the window border in pixels.
-myBorderWidth = 3
+myBorderWidth = 2
 
 -- Fading inactive windows
-myFadeHook :: X()
-myFadeHook = fadeInactiveLogHook fadeAmount
-    where fadeAmount = 0.9
+-- myFadeHook :: X()
+-- myFadeHook = fadeInactiveLogHook fadeAmount
+--     where fadeAmount = 0.9
 
 
 ------------------------------------------------------------------------
@@ -145,7 +147,7 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
 
   -- Open an emacsclient window (in previously visited buffer)
   [ ((modMask, xK_f),
-     spawn "emacsclient -c -n -e '(switch-to-buffer nil)'" )
+     spawn "emacsclient -s global-emacsclient -c -n -e '(switch-to-buffer nil)'" )
 
   -- Start a terminal.  Terminal to start is specified by myTerminal variable.
   , ((modMask .|. shiftMask, xK_Return),
@@ -200,6 +202,14 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
   , ((0, 0x1008FF16),
      spawn "")
 
+  -- Stop Rhythmbox.
+  , ((0, xF86XK_AudioStop),
+     spawn "rhythmbox-client --stop")
+
+  -- Play/Pause Rhythmbox.
+  , ((0, xF86XK_AudioPlay),
+     spawn "rhythmbox-client --play-pause")
+
   -- Play/pause.
   , ((0, 0x1008FF14),
      spawn "")
@@ -211,6 +221,14 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
   -- Eject CD tray.
   , ((0, 0x1008FF2C),
      spawn "eject -T")
+
+  --------------------------------------------------------------------
+  -- Magnifier "standard" keybindings
+  , ((modMask .|. controlMask .|. shiftMask, xK_minus ), sendMessage MagnifyMore)
+  , ((modMask .|. controlMask              , xK_minus), sendMessage MagnifyLess)
+  , ((modMask .|. controlMask              , xK_o    ), sendMessage ToggleOff  )
+  , ((modMask .|. controlMask .|. shiftMask, xK_o    ), sendMessage ToggleOn   )
+  , ((modMask .|. controlMask              , xK_m    ), sendMessage Toggle     )
 
   --------------------------------------------------------------------
   -- "Standard" xmonad key bindings
@@ -288,8 +306,8 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
      io (exitWith ExitSuccess))
 
   -- Restart xmonad.
-  , ((modMask, xK_q),
-     restart "xmonad" True)
+  , ((modMask, xK_q), spawn "killall trayer"
+     >> restart "xmonad" True)
   ]
   ++
 
@@ -349,7 +367,8 @@ myMouseBindings (XConfig {XMonad.modMask = modMask}) = M.fromList $
 -- per-workspace layout choices.
 --
 -- By default, do nothing.
-myStartupHook = return ()
+myStartupHook = do
+  spawn "trayer --edge top --align right --SetDockType true --SetPartialStrut true --expand false --widthtype percent --width 7 --height 17 --monitor primary --transparent true --alpha 0 --tint 0x000000"
 
 ------------------------------------------------------------------------
 -- Run xmonad with all the defaults we set up.
@@ -360,13 +379,14 @@ main = do
     { manageHook = manageDocks <+> myManageHook
     -- this must be in this order, docksEventHook must be last
     , handleEventHook = handleEventHook defaultConfig <+> docksEventHook
-    , logHook = myFadeHook >> ( dynamicLogWithPP $ xmobarPP
-                { ppOutput = hPutStrLn xmproc
+    , logHook = ( dynamicLogWithPP $ xmobarPP
+                { ppOrder = \(ws:l:t:_)   -> [ws,t]
+                ,  ppOutput = hPutStrLn xmproc
                 , ppTitle = xmobarColor xmobarTitleColor "" . shorten 100
                 , ppCurrent = xmobarColor xmobarCurrentWorkspaceColor ""
                 , ppSep = " \\ "
                 } )
-    , startupHook = setWMName "LG3D"
+    , startupHook = setWMName "LG3D" <+> myStartupHook
     }
 
 ------------------------------------------------------------------------
