@@ -1,9 +1,0 @@
-#!/bin/sh
-# Script to launch trayer in the correct position next to xmobar.
-# Author: Vic Fryzel
-# http://github.com/vicfryzel/xmonad-config
-
-# Modified for Kevin Green's needs
-
-# Place in the upper right hand corner
-stalonetray -c ~/.xmonad/stalonetray-rc --geometry 1x1+800+0 --icon-gravity SE --slot-size 16

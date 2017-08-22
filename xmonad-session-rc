@@ -15,29 +15,18 @@ xrdb -merge ~/.Xdefaults &
 # Start a window compositor. This ensures Google Chrome paints correctly.
 xcompmgr -n &
 
-# use xfce's power manager
-xfce4-power-manager &
-
 # my beloved key mappings!
 xmodmap ~/.Xmodmap
 
-# Start screensaver
+# System startup applications
 gnome-screensaver &
+xfce4-power-manager
+pulseaudio --start --log-target=syslog
 
-# Start sound server
-pulseaudio --start --log-target=syslog &
-
-# An emacs daemon for global org capture
-emacs --daemon=global-org-capture
-
-# Sleep cycles are important
-redshift &
-
-# Some startup apps
-google-chrome &
-slack &
-
-# background
+# Personal startup applications
 ~/.fehbg
+
+# Tray icons
+nm-applet &
 
 gnome-session &
