@@ -89,10 +89,10 @@ myManageHook = composeAll
 -- which denotes layout choice.
 --
 myLayout = avoidStruts (smartBorders(
-    --    magnifiercz 1.3 (Circle) |||
     magnifiercz 1.01  (Tall 1 (3/100) (1/2)) |||
     magnifiercz 1.01 (Mirror (Tall 1 (3/100) (1/2))) |||
-    --    magnifiercz 1.1 (ThreeColMid 1 (3/100) (1/2)) |||
+    magnifiercz 1.3 (Circle) |||
+    magnifiercz 1.01 (ThreeColMid 1 (3/100) (1/2)) |||
     tabbed shrinkText tabConfig
      )) |||
     noBorders (fullscreenFull Full)
@@ -368,7 +368,7 @@ myMouseBindings (XConfig {XMonad.modMask = modMask}) = M.fromList $
 --
 -- By default, do nothing.
 myStartupHook = do
-  spawn "trayer --edge top --align right --SetDockType true --SetPartialStrut true --expand false --widthtype percent --width 7 --height 17 --monitor primary --transparent true --alpha 0 --tint 0x000000"
+  spawn "trayer --edge top --align right --SetDockType true --SetPartialStrut false --expand false --widthtype percent --width 7 --height 17 --monitor primary --transparent true --alpha 0 --tint 0x000000"
 
 ------------------------------------------------------------------------
 -- Run xmonad with all the defaults we set up.

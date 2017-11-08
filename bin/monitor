@@ -23,7 +23,7 @@ if [ "$opt" == "left" ]; then
 elif [ "$opt" == "right" ]; then
     xrandr --output $LAP_NAME --primary --auto --output $MON_NAME --right-of $LAP_NAME --auto
 elif [ "$opt" == "home" ]; then
-    xrandr --output $LAP_NAME --primary --pos 1280x1050 --mode 1366x768 --output $MON_NAME --pos 0x0 --mode 1680x1050
+    xrandr --output $LAP_NAME --primary --pos 0x1050 --mode 1366x768 --output $MON_NAME --pos 0x0 --mode 1680x1050
 else
     echo "Usage: monitor <left/right/home>"
     exit -1
