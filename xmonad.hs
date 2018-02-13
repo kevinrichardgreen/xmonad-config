@@ -95,8 +95,6 @@ myManageHook = composeAll
 myLayout = avoidStruts (smartBorders(
     magnifiercz 1.01  (Tall 1 (3/100) (1/2)) |||
     magnifiercz 1.01 (Mirror (Tall 1 (3/100) (1/2))) |||
-    magnifiercz 1.3 (Circle) |||
-    magnifiercz 1.01 (ThreeColMid 1 (3/100) (1/2)) |||
     tabbed shrinkText tabConfig
      )) |||
     noBorders (fullscreenFull Full)
