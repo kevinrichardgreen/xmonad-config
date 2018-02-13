@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+# Script to turn 'nosleep' mode on and off for watching fullscreen
+# movies in vlc (for example)
+
+# all screen manipulation options masked or unmasked
+opt=$1
+if [ "$opt" == "on" ]; then
+  sudo systemctl mask sleep.target suspend.target hibernate.target hybrid-sleep.target
+elif [ "$opt" == "off" ]; then
+  sudo systemctl unmask sleep.target suspend.target hibernate.target hybrid-sleep.target
+else
+  echo "Usage: movie <on/off>"
+  exit -1
+fi
