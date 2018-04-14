@@ -19,7 +19,7 @@ xrandr -s 0
 # External monitor to LEFT of or RIGHT of laptop
 opt=$1
 if [ "$opt" == "left" ]; then
-    xrandr --output $LAP_NAME --primary --auto --output $MON_NAME --left-of $LAP_NAME --auto
+    xrandr --output $LAP_NAME --auto --output $MON_NAME --left-of $LAP_NAME --primary --auto
 elif [ "$opt" == "right" ]; then
     xrandr --output $LAP_NAME --primary --auto --output $MON_NAME --right-of $LAP_NAME --auto
 elif [ "$opt" == "only" ]; then
