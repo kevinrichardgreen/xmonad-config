@@ -147,9 +147,22 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
   -- Custom key bindings
   --
 
-  -- Open an emacsclient window (in previously visited buffer)
+  --
+  -- Most used hotkeys
+  --
+
+  -- Open a kgmacs emacsclient instance
   [ ((modMask, xK_f),
-     spawn "emacsclient -s global-emacsclient -c -n -e '(switch-to-buffer nil)'" )
+     spawn "kgmacs" )
+
+  -- Google chrome
+  , ((modMask, xK_g),
+     spawn "google-chrome" )
+
+  -- Rhythmbox
+  , ((modMask, xK_r),
+     spawn "rhythmbox" )
+
 
   -- Start a terminal.  Terminal to start is specified by myTerminal variable.
   , ((modMask .|. shiftMask, xK_Return),
@@ -164,17 +177,18 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
   , ((modMask, xK_d),
      spawn myLauncher)
 
-  -- Global org capture from anywhere
-  , ((modMask, xK_F2),
-     spawn "global_org_capture.sh")
 
   -- Take a selective screenshot using the command specified by mySelectScreenshot.
+  , ((modMask , xK_p),
+     spawn myScreenshot)
+
+  -- Take a full screenshot using the command specified by myScreenshot.
   , ((modMask .|. shiftMask, xK_p),
      spawn mySelectScreenshot)
 
-  -- Take a full screenshot using the command specified by myScreenshot.
-  , ((modMask .|. controlMask .|. shiftMask, xK_p),
-     spawn myScreenshot)
+  --
+  --  MEDIA KEYS
+  --
 
   -- Mute volume.
   , ((0, xF86XK_AudioMute),
@@ -201,8 +215,8 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
      spawn "amixer -q set Master 5%+")
 
   -- Audio previous.
-  , ((0, 0x1008FF16),
-     spawn "")
+  , ((0, xF86XK_AudioPrev),
+     spawn "rhythmbox-client --previous")
 
   -- Stop Rhythmbox.
   , ((0, xF86XK_AudioStop),
@@ -212,13 +226,9 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
   , ((0, xF86XK_AudioPlay),
      spawn "rhythmbox-client --play-pause")
 
-  -- Play/pause.
-  , ((0, 0x1008FF14),
-     spawn "")
-
   -- Audio next.
-  , ((0, 0x1008FF17),
-     spawn "")
+  , ((0, xF86XK_AudioNext),
+     spawn "rhythmbox-client --next")
 
   -- Eject CD tray.
   , ((0, 0x1008FF2C),
