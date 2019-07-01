@@ -320,6 +320,10 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
   -- Restart xmonad.
   , ((modMask, xK_q), spawn "killall trayer"
      >> restart "xmonad" True)
+
+  -- Manipulate brightness
+  , ((0, xF86XK_MonBrightnessUp), spawn "lux -a 5%")
+  , ((0, xF86XK_MonBrightnessDown), spawn "lux -s 5%")
   ]
   ++
 
