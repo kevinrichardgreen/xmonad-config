@@ -124,7 +124,7 @@ xmobarTitleColor = "#ee9a00" -- "#FFB6B0"
 xmobarCurrentWorkspaceColor = "green"
 
 -- Width of the window border in pixels.
-myBorderWidth = 2
+myBorderWidth = 3
 
 -- Fading inactive windows
 -- myFadeHook :: X()
@@ -380,7 +380,7 @@ myMouseBindings (XConfig {XMonad.modMask = modMask}) = M.fromList $
 --
 -- By default, do nothing.
 myStartupHook = do
-  spawn "trayer --edge top --align right --SetDockType true --SetPartialStrut false --expand false --widthtype percent --width 7 --height 17 --monitor primary --transparent true --alpha 0 --tint 0x000000"
+  spawn "trayer --edge top --align right --SetDockType true --SetPartialStrut false --expand false --widthtype percent --width 7 --height 21 --monitor primary --transparent true --alpha 0 --tint 0x000000"
 
 ------------------------------------------------------------------------
 -- Run xmonad with all the defaults we set up.
