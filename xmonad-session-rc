@@ -5,8 +5,21 @@
 
 # Modified for Kevin Green's needs
 
+# Incorporating things from https://github.com/davidbrewer/xmonad-ubuntu-conf
+# for running properly on an Ubuntu18.04 base
+
 # Configure PATH so that we can access our scripts below
 PATH=$PATH:~/.cabal/bin:~/.xmonad/bin
+
+# Clear xmonad.state before starting xmonad -- otherwise this causes weird
+# issues, especially when going between single screen and multi-screen
+rm -f ~/.xmonad/xmonad.state
+
+# Run the gnome-keyring-daemon to avoid issues you otherwise may encounter
+# when using gnome applications which expect access to the keyring, such
+# as Empathy. This prevents prompts you may otherwise get for invalid
+# certificates and the like.
+gnome-keyring-daemon --start --components=gpg,pkcs11,secrets,ssh
 
 # Configure X
 xsetroot -cursor_name left_ptr &
@@ -20,13 +33,13 @@ xmodmap ~/.Xmodmap
 
 # System startup applications
 gnome-screensaver &
-xfce4-power-manager
 pulseaudio --start --log-target=syslog
 
 # Personal startup applications
-~/.fehbg
+# ~/.fehbg
 
-# Tray icons
+# Tray icons/daemons
 nm-applet &
+volumeicon &
 
-gnome-session &
+exec xmonad
