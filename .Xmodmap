@@ -1,0 +1,13 @@
+clear control
+clear mod1
+clear mod3
+clear mod4
+
+keycode 37 = Super_L NoSymbol Super_L
+keycode 64 = Control_L NoSymbol Control_L
+keycode 133 = Alt_L Meta_L Alt_L Meta_L
+
+add control = Control_L Control_R
+add mod1 = Alt_L
+add mod3 = Alt_R
+add mod4 = Super_L Super_R
