@@ -6,7 +6,7 @@
 #  Usage: monitor <left/right/only>
 
 # Set your laptop's screen's name
-LAP_NAME=eDP-1
+LAP_NAME=LVDS-1
 LAP_RES=`xrandr -q | grep -A1 $LAP_NAME | grep -v $LAP_NAME | tr -s " " | cut -d " " -f 2`
 
 # get monitor's name and resolution
