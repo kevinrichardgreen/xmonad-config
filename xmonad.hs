@@ -384,7 +384,7 @@ myMouseBindings (XConfig {XMonad.modMask = modMask}) = M.fromList $
 --
 -- By default, do nothing.
 myStartupHook = do
-  spawn "trayer --edge top --align right --SetDockType true --SetPartialStrut false --expand false --widthtype percent --width 7 --height 21 --monitor primary --transparent true --alpha 0 --tint 0x000000"
+  spawn "trayer --edge top --align right --SetDockType true --SetPartialStrut false --expand false --widthtype percent --width 7 --height 19 --monitor primary --transparent true --alpha 0 --tint 0x000000"
 
 ------------------------------------------------------------------------
 -- Run xmonad with all the defaults we set up.

@@ -5,7 +5,7 @@
 -- Modified for Kevin's laptop
 
 Config {
-    font                = "xft:Monospace:size=10:bold:antialias=true",
+    font                = "xft:Monospace:size=9:bold:antialias=true",
     bgColor		= "#000000",
     fgColor		= "#aaaaaa",
     position		= TopW L 94 --Static { xpos = 0, ypos = 0, width = 1302, height = 16 },
