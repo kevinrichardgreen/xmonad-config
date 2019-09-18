@@ -23,7 +23,7 @@ gnome-keyring-daemon --start --components=gpg,pkcs11,secrets,ssh
 
 # Configure X
 xrdb -merge ~/.Xdefaults &
-xsetroot -cursor_name left_ptr -solid "#000000"&
+xsetroot -cursor_name left_ptr -solid "#000000" &
 
 # Start a window compositor. This ensures Google Chrome paints correctly.
 # xcompmgr -n &
