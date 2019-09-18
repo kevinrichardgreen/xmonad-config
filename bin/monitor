@@ -8,10 +8,18 @@
 # Set your laptop's screen's name
 LAP_NAME=LVDS-1
 LAP_RES=`xrandr -q | grep -A1 $LAP_NAME | grep -v $LAP_NAME | tr -s " " | cut -d " " -f 2`
+# echo $LAP_RES
 
 # get monitor's name and resolution
-MON_NAME=`xrandr -q | grep " connected " | grep -v $LAP_NAME | cut -d " " -f 1`
-MON_RES=`xrandr -q | grep -A1 $MON_NAME | grep -v $MON_NAME | tr -s " " | cut -d " " -f 2`
+MON_XRANDR_LINE=`xrandr -q | grep " connected "` # | grep -v $LAP_NAME`
+# echo $MON_XRANDR_LINE
+if [ -z "$MON_XRANDR_LINE" ]
+then
+   MON_NAME=`echo $MON_XRANDR_LINE | cut -d " " -f 1`
+   MON_RES=`xrandr -q | grep -A1 $MON_NAME | grep -v $MON_NAME | tr -s " " | cut -d " " -f 2`
+fi
+# echo $MON_NAME
+# echo $MON_RES
 
 # reset xrandr screens
 # xrandr -s 0
