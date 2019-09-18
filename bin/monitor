@@ -3,7 +3,7 @@
 # Script that duplicates displays. Scales the laptop resolution to
 #  that of the attached monitor
 #
-#  Usage: monitor <left/right/only>
+#  Usage: monitor <left/right/above/below/only/clean>
 
 # Set your laptop's screen's name
 LAP_NAME=LVDS-1
@@ -14,18 +14,30 @@ MON_NAME=`xrandr -q | grep " connected " | grep -v $LAP_NAME | cut -d " " -f 1`
 MON_RES=`xrandr -q | grep -A1 $MON_NAME | grep -v $MON_NAME | tr -s " " | cut -d " " -f 2`
 
 # reset xrandr screens
-xrandr -s 0
+# xrandr -s 0
 
-# External monitor to LEFT of or RIGHT of laptop
+# External monitor to LEFT or RIGHT or ABOVE or BELOW laptop
+# CLEAN turns off all disconnected monitors
 opt=$1
 if [ "$opt" == "left" ]; then
     xrandr --output $LAP_NAME --auto --output $MON_NAME --left-of $LAP_NAME --primary --auto
 elif [ "$opt" == "right" ]; then
     xrandr --output $LAP_NAME --primary --auto --output $MON_NAME --right-of $LAP_NAME --auto
+elif [ "$opt" == "above" ]; then
+    xrandr --output $LAP_NAME --primary --auto --output $MON_NAME --above $LAP_NAME --auto
+elif [ "$opt" == "below" ]; then
+    xrandr --output $LAP_NAME --primary --auto --output $MON_NAME --below $LAP_NAME --auto
 elif [ "$opt" == "only" ]; then
-  xrandr --output $MON_NAME --primary --auto --output LVDS-1 --off
+    xrandr --output $MON_NAME --primary --auto --output LVDS-1 --off
+elif [ "$opt" == "clean" ]; then
+    # clean up (disconnected monitors)
+    CONNECTIONS=$(xrandr -q | grep disconnected | cut -d " " -f 1)
+    for c in $CONNECTIONS
+    do
+	xrandr --output $c --off
+    done
 else
-    echo "Usage: monitor <left/right/only>"
+    echo "Usage: monitor <left/right/above/below/only/clean>"
     exit -1
 fi
 
