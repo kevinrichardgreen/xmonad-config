@@ -11,9 +11,9 @@ LAP_RES=`xrandr -q | grep -A1 $LAP_NAME | grep -v $LAP_NAME | tr -s " " | cut -d
 # echo $LAP_RES
 
 # get monitor's name and resolution
-MON_XRANDR_LINE=`xrandr -q | grep " connected "` # | grep -v $LAP_NAME`
+MON_XRANDR_LINE=`xrandr -q | grep " connected " | grep -v $LAP_NAME`
 # echo $MON_XRANDR_LINE
-if [ -z "$MON_XRANDR_LINE" ]
+if [ -n "$MON_XRANDR_LINE" ]
 then
    MON_NAME=`echo $MON_XRANDR_LINE | cut -d " " -f 1`
    MON_RES=`xrandr -q | grep -A1 $MON_NAME | grep -v $MON_NAME | tr -s " " | cut -d " " -f 2`
