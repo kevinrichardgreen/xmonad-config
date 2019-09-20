@@ -35,11 +35,12 @@ xmodmap ~/.Xmodmap
 gnome-screensaver &
 pulseaudio --start --log-target=syslog
 
-# Personal startup applications
-# ~/.fehbg
-
 # Tray icons/daemons
 nm-applet &
 volumeicon &
+redshift-gtk &
+
+# Other services
+nordvpn connect
 
 exec xmonad
