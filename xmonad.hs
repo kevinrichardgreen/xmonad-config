@@ -167,6 +167,9 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
   -- Start a terminal.  Terminal to start is specified by myTerminal variable.
   , ((modMask .|. shiftMask, xK_Return),
      spawn $ XMonad.terminal conf)
+  -- Provide a backup variant in case the xmodmap breaks
+  , ((controlMask .|. shiftMask, xK_Return),
+     spawn $ XMonad.terminal conf)
 
   -- Lock the screen using command specified by myScreensaver.
   , ((modMask .|. controlMask, xK_l),
