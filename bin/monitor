@@ -37,6 +37,8 @@ elif [ "$opt" == "below" ]; then
     xrandr --output $LAP_NAME --primary --auto --output $MON_NAME --below $LAP_NAME --auto
 elif [ "$opt" == "only" ]; then
     xrandr --output $MON_NAME --primary --auto --output LVDS-1 --off
+elif [ "$opt" == "work" ]; then
+    xrandr --output $LAP_NAME --primary --auto --output $MON_NAME --right-of $LAP_NAME --mode 2560x1440
 elif [ "$opt" == "clean" ]; then
     # clean up (disconnected monitors)
     CONNECTIONS=$(xrandr -q | grep disconnected | cut -d " " -f 1)
