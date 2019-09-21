@@ -1,0 +1,4 @@
+#!/bin/bash
+
+# Get the prefix in connected nordvpn server XXXXX.nordvpn.*
+nordvpn status | grep server | cut -d " " -f 3 | cut -d "." -f 1
