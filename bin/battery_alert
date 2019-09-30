@@ -1,0 +1,19 @@
+#!/bin/bash
+
+# battery_alert script using notify-send
+
+battery_status=`acpi -b | grep "Battery 1" | cut -d " " -f 3`
+
+battery_level=`acpi -b | grep "Battery 1" | grep -P -o '[0-9]+(?=%)'`
+
+if [ $battery_status == "Discharging," ]
+then
+    if [ $battery_level -le 99 ]
+    then
+       notify-send "Battery low" "Battery level is ${battery_level}%!"
+    fi
+    if [ $battery_level -le 10 ]
+    then
+       notify-send "Battery critically low" "Battery level is ${battery_level}%!"
+    fi
+fi

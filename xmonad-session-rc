@@ -32,8 +32,9 @@ xsetroot -cursor_name left_ptr -solid "#000000" &
 xmodmap ~/.Xmodmap
 
 # System startup applications
-gnome-screensaver &
-pulseaudio --start --log-target=syslog
+gnome-screensaver & # lock screen and screensaver management
+pulseaudio --start --log-target=syslog &
+usr/lib/x86_64-linux-gnu/xfce4/notifyd/xfce4-notifyd & # xfce4 notification panel.
 
 # Tray icons/daemons
 nm-applet &
