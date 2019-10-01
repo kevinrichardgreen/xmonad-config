@@ -20,7 +20,7 @@ Config {
         Run Memory ["-t","M:<usedratio>","-p","2","-L","50","-H","80","-h","red","-l","green","--normal","yellow"] 10,
 	Run Battery ["-t","<acstatus>:<left>","--","-O","AC","-o","Bat","-L","15","-H","50","-h","green","-l","red"] 10,
         Run Date "%m-%d %H:%M" "date" 10,
-        Run Com  "nordvpn-server" ["&"] "" 100
+        Run Com  "nordvpn-server" ["&"] "" 300
     ],
     sepChar = "%",
     alignSep = "}{",
