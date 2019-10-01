@@ -9,7 +9,7 @@
 # for running properly on an Ubuntu18.04 base
 
 # Configure PATH so that we can access our scripts below
-PATH=$PATH:~/.cabal/bin:~/.xmonad/bin:~/.local/bin
+PATH=$PATH:~/.cabal/bin:~/.xmonad/bin:~/.local/bin:/opt/anaconda3/bin
 
 # Clear xmonad.state before starting xmonad -- otherwise this causes weird
 # issues, especially when going between single screen and multi-screen
